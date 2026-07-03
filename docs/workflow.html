@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChemMatEnv-paper — 材料/化学/环境顶刊论文全流程 Skill</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --card: #ffffff;
+    --text: #1c1917;
+    --muted: #78716c;
+    --accent: #0d9488;
+    --accent2: #0891b2;
+    --border: #e7e5e4;
+    --tag-bg: #f0fdfa;
+    --tag-text: #0f766e;
+    --warn-bg: #fef3c7;
+    --warn-text: #92400e;
+    --red: #dc2626;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+  h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+  h1 .ver { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-left: 8px; vertical-align: middle; }
+  .subtitle { color: var(--muted); font-size: 1.05rem; margin-bottom: 32px; }
+  h2 { font-size: 1.35rem; font-weight: 700; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); }
+  h3 { font-size: 1.1rem; font-weight: 600; margin: 28px 0 10px; color: var(--accent2); }
+  p, li { margin-bottom: 8px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .grid4 { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .tag {
+    display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+    font-size: 0.8rem; padding: 2px 10px; border-radius: 20px; font-weight: 600; margin: 2px 4px 2px 0;
+  }
+  .warn {
+    background: var(--warn-bg); color: var(--warn-text);
+    border-left: 4px solid var(--warn-text); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 16px 0;
+    font-size: 0.9rem;
+  }
+  .step-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: #fff;
+    font-weight: 700; font-size: 0.85rem; margin-right: 8px; flex-shrink: 0;
+  }
+  .step-row { display: flex; align-items: flex-start; margin-bottom: 10px; }
+  .mermaid { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin: 16px 0; text-align: center; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 12px 0; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { font-weight: 600; color: var(--accent2); background: #f5f5f4; }
+  .check { color: var(--accent); font-weight: 700; }
+  .cross { color: var(--muted); }
+  .platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+  .platform-item {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; text-align: center; font-weight: 600; font-size: 0.85rem;
+  }
+  pre { background: #1e293b; color: #e2e8f0; border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.85rem; margin: 12px 0; }
+  code { font-family: "SF Mono", "Fira Code", "Fira Mono", monospace; font-size: 0.85em; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .hero-tags { margin: 12px 0 20px; }
+  @media (max-width: 640px) {
+    .grid2, .grid3 { grid-template-columns: 1fr; }
+    .container { padding: 20px 16px 60px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>ChemMatEnv-paper <span class="ver">v0.2.0</span></h1>
+<p class="subtitle">
+  材料 · 化学 · 环境 — 顶刊论文从证据到投稿的全流程 AI 协作 Skill<br>
+  遵循 <strong>Agent Skills 开放标准</strong>，跨 20+ AI 编码工具通用
+</p>
+
+<div class="hero-tags">
+  <span class="tag">📦 故事设计</span><span class="tag">📋 期刊要求检索</span><span class="tag">✍️ 章节 Playbook 起草</span><span class="tag">🔍 文献引用搜索</span>
+  <span class="tag">🎯 顶刊表达校准</span><span class="tag">🛡️ 去 AI 味</span><span class="tag">🔗 逻辑链审计</span><span class="tag">📐 LaTeX 排版</span>
+  <span class="tag">👨‍⚖️ 编辑+三轮审稿</span><span class="tag">🌐 跨平台</span>
+</div>
+
+<!-- ==================== 总览流程图 ==================== -->
+<h2>🔄 全流程总览</h2>
+
+<div class="mermaid">
+flowchart TB
+    START(["用户输入：数据 / 图表 / 草稿 / 审稿意见"]) --> ORIENT
+
+    subgraph PHASE1["🔵 Phase 1: 准备"]
+        ORIENT["1. 识别稿件阶段<br/>audit / story / draft / revision / review"] --> STORY
+        STORY["2. 故事架构<br/>提取证据 → 候选故事 → 锁定 story package"] --> JOURNAL["3. 目标期刊检索<br/>实时搜索 author guidelines"]
+    end
+
+    PHASE1 --> DRAFTING
+
+    subgraph PHASE2["🟢 Phase 2: 起草"]
+        DRAFTING["4. 章节 Playbook 起草<br/>per-section rules + paper-type chain"] --> CITATION["5. 文献引用搜索（可选）<br/>分段→搜索→5级评估→导出"]
+    end
+
+    PHASE2 --> GATES
+
+    subgraph PHASE3["🟡 Phase 3: 质量闸门"]
+        GATES["6. 质量闸门（Full / Light 分级）"] --> EXPR["顶刊表达 + diction 校准"]
+        GATES --> AI["去 AI 味 + 中→英修复"]
+        GATES --> LOGIC["逻辑链审计 + 反向提纲"]
+        GATES --> FAIL["失败模式诊断（预检 9 项）"]
+    end
+
+    PHASE3 --> REVIEW
+
+    subgraph PHASE4["🔴 Phase 4: 审稿"]
+        REVIEW["7. Handling Editor 审稿<br/>scope / novelty / evidence gaps"] --> R1["8. 三轮三审稿人模拟<br/>A: 证据 · B: 新颖性 · C: 逻辑风格"]
+    end
+
+    PHASE4 --> OUTPUT
+
+    subgraph PHASE5["🟣 Phase 5: 输出 + 排版"]
+        OUTPUT["9. 最终输出<br/>revised ms + story package + matrix + risk register"] --> LATEX["LaTeX 排版诊断<br/>float / heading / aspect ratio / SI"]
+    end
+
+    PHASE5 --> DONE(["✅ 投稿就绪"])
+
+    style START fill:#f0fdfa,stroke:#0d9488
+    style DONE fill:#f0fdfa,stroke:#0d9488
+    style PHASE1 fill:#eff6ff,stroke:#3b82f6
+    style PHASE2 fill:#f0fdf4,stroke:#22c55e
+    style PHASE3 fill:#fef9c3,stroke:#eab308
+    style PHASE4 fill:#fef2f2,stroke:#ef4444
+    style PHASE5 fill:#faf5ff,stroke:#a855f7
+</div>
+
+<!-- ==================== 核心设计 ==================== -->
+<h2>🧠 核心设计理念</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h3>🏗️ 故事先行</h3>
+    <p>正式起草前，先锁定 8 个字段的 <strong>story package</strong>：核心问题、瓶颈、设计原则、主 claim、证据映射、机制定位、范围边界、目标期刊画像。避免边写边改故事，导致论文"看起来流畅但逻辑失控"。</p>
+  </div>
+  <div class="card">
+    <h3>🧱 结构优先于措辞</h3>
+    <p>采用 <strong>失败模式诊断</strong>（9 项预检清单），按 paper type → section job → paragraph logic → claim/evidence → sentence polish 层级修复。结构错了就绝不 polish 句子。</p>
+  </div>
+  <div class="card">
+    <h3>🔍 实时检索，不凭记忆</h3>
+    <p>期刊要求（word limits, template, display items）和同主题顶刊表达（collocations, hedge patterns, discourse moves）必须在起草前实时搜索，找不到就标 <code>not found</code>，不猜测。</p>
+  </div>
+  <div class="card">
+    <h3>⚖️ 闸门分级，避免循环</h3>
+    <p><strong>Full gate</strong>（含 live 文献搜索）：新起草 / 大改后 / 最终轮。<strong>Light gate</strong>（仅 anti-AI + logic）：小修措辞。同 session 同主题搜索结果可复用，不必每段重搜。</p>
+  </div>
+</div>
+
+<!-- ==================== 详细工作流 ==================== -->
+<h2>📋 9 步操作流程详解</h2>
+
+<div class="card">
+  <div class="step-row"><span class="step-num">1</span><div><strong>Orient — 识别稿件阶段</strong><br>判断当前任务属于 audit_only / story_architecture / journal_requirements / manuscript_drafting / section_revision / full_manuscript_revision / review_cycle / response_revision 之一，声明后进入对应流程。</div></div>
+  <div class="step-row"><span class="step-num">2</span><div><strong>Read References — 按需加载参考文件</strong><br>14 个 reference 文件按任务加载，不全量加载。故事/claim 控制、章节 playbook、citation search、表达审计、去 AI、逻辑修复、失败模式诊断、LaTeX 排版、审稿协议、矩阵 schema —— 只加载当前任务需要的。</div></div>
+  <div class="step-row"><span class="step-num">3</span><div><strong>Build Or Rebuild The Story — 锁定 story package</strong><br>提取证据 → 2-3 个候选故事 → 选默认故事并解释弱故事为何弱 → 设计标题/摘要/图序/贡献尺度/危险逻辑跳跃 → 锁定 8 字段。见 <code>references/story-architecture-protocol.md</code>。</div></div>
+  <div class="step-row"><span class="step-num">4</span><div><strong>Research Target Journal — 实时期刊要求检索</strong><br>搜索 official author guidelines → 记录 word limits / abstract 格式 / display items / template / required sections / SI 规则 → 按 ACS/RSC/Wiley/Nature/Science/Cell Press 六大家族分别适配。见 <code>references/target-journal-requirements.md</code>（含 6 家族速查表）。</div></div>
+  <div class="step-row"><span class="step-num" style="background:var(--accent2)">4b</span><div><strong>Citation Search — 文献引用搜索（可选）</strong><br>分段文本 → 解析 claim → 搜索（精确/同义/背景三档）→ 5 级保守评估 → 导出 ENW/RIS/RDF → HTML 可视化报告。期刊范围覆盖材料/化学/环境六大出版家族。仅用户要求或 claim 缺引用时触发。见 <code>references/citation-search.md</code>。</div></div>
+  <div class="step-row"><span class="step-num">5</span><div><strong>Draft Or Revise — 按 Playbook 起草</strong><br>预检失败模式 9 项 → 按 <code>references/per-section-playbooks.md</code> 的章节结构（Abstract 六步 / Introduction 四段漏斗 / Results 证据阶梯 / Discussion 解读+hedging / Conclusion 三部分收尾 / Title 三种期刊风格）和 paper-type argument chain 起草。中文草稿先跑中→英修复模式（8 种常见模式）。</div></div>
+  <div class="step-row"><span class="step-num">6</span><div><strong>Run Quality Gates — 质量闸门</strong><br>Full gate（新起草/大改/最终轮）：顶刊表达检索+diction校准 + 去AI味 + 逻辑链审计+反向提纲。<br>Light gate（小修）：仅去AI味 + 逻辑链。输出 <code>quality_gate_report</code>。闸门通过 ≠ checklist 打勾 —— 必须真正修改了正文才算通过。</div></div>
+  <div class="step-row"><span class="step-num">7</span><div><strong>Handling Editor Pass — 编辑预审</strong><br>模拟期刊处理编辑：scope fit / desk-reject 风险 / novelty / evidence gaps / overclaim / 是否值得送审 → 生成 <code>review_action_matrix</code> → 立刻修订。</div></div>
+  <div class="step-row"><span class="step-num">8</span><div><strong>Three Reviewer Rounds — 三轮三审稿人</strong><br>每轮：A（方法和证据）+ B（领域和新颖性）+ C（逻辑和风格）独立评审 → 合并 → 修订 → 重跑质量闸门 → 遗留项带入下轮。reviewer 输出格式见 <code>references/multi-round-review-protocol.md</code>。不偷偷让 reviewer 改写故事。</div></div>
+  <div class="step-row"><span class="step-num">9</span><div><strong>Final Output + LaTeX Layout — 最终输出</strong><br>修订后稿件 + locked story package + journal requirements + editor verdict + 三轮 reviewer 历史 + review_action_matrix + quality_gate_report + risk register。可选 LaTeX 排版诊断（float / 宽扁图 / 搁浅标题 / 多面板 / SI 密度）。靠写作无法解决的证据缺口直接标注，不用语言包装。</div></div>
+</div>
+
+<!-- ==================== 能力矩阵 ==================== -->
+<h2>🧰 14 个 Reference 文件能力矩阵</h2>
+
+<div class="mermaid">
+flowchart LR
+    subgraph STORY["📦 故事 & Claim"]
+        A1["story-package-schema.md<br/>8 字段定义 + Red Flags"]
+        A2["story-architecture-protocol.md<br/>8 步故事设计流程"]
+        A3["claim-evidence-ladder.md<br/>5 级证据阶梯"]
+    end
+    subgraph DRAFT["✍️ 起草"]
+        B1["manuscript-drafting-protocol.md<br/>起草规则 + 指向 playbook"]
+        B2["per-section-playbooks.md<br/>6 章节 + 5 paper-type"]
+        B3["target-journal-requirements.md<br/>要求检索 + 6 家族速查"]
+    end
+    subgraph GATE["🛡️ 质量"]
+        C1["live-literature-expression-audit.md<br/>表达审计 + diction 校准"]
+        C2["anti-ai-style-rules.md<br/>去 AI 味 + 中→英修复"]
+        C3["logic-link-audit.md<br/>逻辑链 + 反向提纲"]
+        C4["failure-mode-diagnosis.md<br/>9 项预检"]
+    end
+    subgraph EXTRA["🔧 扩展"]
+        D1["citation-search.md<br/>引用搜索 + 期刊白名单"]
+        D2["latex-layout.md<br/>LaTeX 排版诊断"]
+        D3["multi-round-review-protocol.md<br/>审稿协议"]
+        D4["review-action-matrix-schema.md<br/>审稿矩阵"]
+    end
+
+    STORY --> DRAFT --> GATE --> EXTRA
+
+    style STORY fill:#eff6ff,stroke:#3b82f6
+    style DRAFT fill:#f0fdf4,stroke:#22c55e
+    style GATE fill:#fef9c3,stroke:#eab308
+    style EXTRA fill:#faf5ff,stroke:#a855f7
+</div>
+
+<!-- ==================== Journal Families ==================== -->
+<h2>📰 六大期刊家族速查</h2>
+
+<table>
+  <tr><th>家族</th><th>代表期刊</th><th>关键特征</th><th>Desk-Rejection 常见原因</th></tr>
+  <tr><td><strong>ACS</strong></td><td>JACS, ACS Nano, Nano Lett., Chem. Mater., EST</td><td>Communication ≤4p; graphical TOC 必选; SI 是实验主体; 主动语态</td><td>TOC 缺失或泛化; 表征不足以支撑结构声明</td></tr>
+  <tr><td><strong>RSC</strong></td><td>EES, Chem. Sci., J. Mater. Chem. A, Mater. Horiz.</td><td>EES 短通讯格式; 允许适度 editorial 语言; RSC 模板</td><td>对比 state-of-the-art 不足; EES 缺能源/环境宏观影响</td></tr>
+  <tr><td><strong>Wiley</strong></td><td>Angew. Chem., Adv. Mater., Adv. Energy Mater.</td><td>Angewandte 冒号标题; Adv. Mater. 宣言式; 10+ figures 宽容; 长句容忍</td><td>新颖性过度宣称; 机制深度不足</td></tr>
+  <tr><td><strong>Nature 家族</strong></td><td>Nat. Mater., Nat. Chem., Nat. Energy, Nat. Commun.</td><td>Summary paragraph; Methods 文末; ~50 ref cap; 宽受众; 无 em dash</td><td>范围太窄; 方法细节不足; summary paragraph 夸大</td></tr>
+  <tr><td><strong>Science 家族</strong></td><td>Science, Sci. Adv.</td><td>Report ~2,500 words; Research Article ~4,500; 需 field-level significance</td><td>Report 格式放不下证据链; 无领域级意义</td></tr>
+  <tr><td><strong>Cell Press</strong></td><td>Chem, Joule, Matter</td><td>Chem 偏化学全貌; Joule 偏能源性能+技术经济分析; Matter 偏材料设计+计算实验整合</td><td>读起来像专科论文缺乏概念性推进; 缺少"全貌"叙事弧线</td></tr>
+</table>
+
+<!-- ==================== Evidence Ladder ==================== -->
+<h2>🪜 Claim-Evidence Ladder（5 级证据阶梯）</h2>
+
+<div class="mermaid">
+flowchart LR
+    R1["Rung 1<br/><b>Observation</b><br/>Minimum: named system + measured outcome<br/>🔬 观察到 X 材料在某条件下表现出 Y 值"] --> R2
+    R2["Rung 2<br/><b>Comparative</b><br/>Minimum: ≥1 named baseline<br/>📊 X 在同等条件下超过 Z 基准 Y%"] --> R3
+    R3["Rung 3<br/><b>Structural</b><br/>Minimum: ≥2 characterization methods converge<br/>🧪 XRD + XPS + TEM 共同指向 A 结构"] --> R4
+    R4["Rung 4<br/><b>Mechanistic</b><br/>Minimum: ≥2 independent evidence types or 1 direct probe + 1 exclusion<br/>⚙️ 原位光谱 + 对照实验排除 B 机制 → 支持 A 机制"] --> R5
+    R5["Rung 5<br/><b>Scope / General</b><br/>Minimum: ≥3 systems, conditions, or substrate types<br/>🌐 在 3 种底物 + 2 种条件下均成立 → 可推广声明"]
+
+    style R1 fill:#dcfce7,stroke:#22c55e
+    style R2 fill:#dbeafe,stroke:#3b82f6
+    style R3 fill:#fef3c7,stroke:#eab308
+    style R4 fill:#fed7aa,stroke:#f97316
+    style R5 fill:#fce7f3,stroke:#ec4899
+</div>
+
+<div class="warn">
+  <strong>⚠️ Promotion Rules：</strong>不可仅靠措辞从 Rung 2 跳到 Rung 4。<code>drives / governs / enables</code> 需要 Rung 4。<code>general / platform</code> 需要 Rung 5。相关性证据用 <code>is associated with / is consistent with / suggests</code>。
+</div>
+
+<!-- ==================== Paper Types ==================== -->
+<h2>📑 五种论文类型 Argument Chains</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h3>🔬 Research Paper</h3>
+    <p><code>field need → target property gap → design rationale → synthesis → characterization → property vs. benchmark → mechanism → implication → boundary</code></p>
+    <p style="font-size:0.85rem;color:var(--muted)">材料/化学最常用类型。起草顺序：Results → Intro/Conclusion → Title → Abstract。</p>
+  </div>
+  <div class="card">
+    <h3>🧪 Hypothesis / Mechanism</h3>
+    <p><code>phenomenon → candidate explanations → explicit hypothesis → falsification path → evidence for/against → rival explanations → bounded conclusion</code></p>
+    <p style="font-size:0.85rem;color:var(--muted)">机制论文核心：必须明确声明假说，区分支持性 vs 一致但非鉴别性证据。</p>
+  </div>
+  <div class="card">
+    <h3>🛠️ Methods / Technique</h3>
+    <p><code>task/problem → limits of existing → proposed method → evaluation (reliability / speed / resolution) → reproducibility → boundary</code></p>
+    <p style="font-size:0.85rem;color:var(--muted)">禁止 vague 短语：under standard conditions / using routine methods / the method was validated。</p>
+  </div>
+  <div class="card">
+    <h3>📚 Review</h3>
+    <p><code>scope & criteria → organizing principle → synthesis by argument → disagreements & gaps → author's stance → outlook with open questions</code></p>
+    <p style="font-size:0.85rem;color:var(--muted)">替换 "Author A reported X. Author B reported Y." 为按 mechanism/method/conclusion 分组合成。</p>
+  </div>
+  <div class="card" style="grid-column: 1 / -1;">
+    <h3>💻 Computational / Modeling</h3>
+    <p><code>task/scope → what the model is → why it works → evaluation vs. experimental ref → component analysis → failure modes → applicability boundary</code></p>
+    <p style="font-size:0.85rem;color:var(--muted)">DFT/MD: report functional, basis set, convergence, comparison to experiment。ML: report training set, test performance, extrapolation limits。</p>
+  </div>
+</div>
+
+<!-- ==================== Quality Gates ==================== -->
+<h2>⚖️ 质量闸门分级</h2>
+
+<div class="mermaid">
+flowchart TB
+    CHANGE["每次起草或修订"] --> DECIDE{"改动规模？"}
+    DECIDE -->|"新起草 / 结构性大改 / 最终轮"| FULL["🟢 Full Gate<br/>1. 顶刊表达检索 + diction 校准<br/>2. 去 AI 味 + 中→英修复<br/>3. 逻辑链审计 + 反向提纲"]
+    DECIDE -->|"小修措辞 / 收紧 hedge / 调整段落"| LIGHT["🟡 Light Gate<br/>1. 去 AI 味<br/>2. 逻辑链审计<br/>(复用已有表达检索结果)"]
+
+    FULL --> PASS{"闸门通过？"}
+    LIGHT --> PASS
+    PASS -->|"正文已修改"| NEXT["继续编辑 / 审稿"]
+    PASS -->|"checklist 打勾但未改正文"| FAIL["❌ 不通过，重新修订"]
+
+    style FULL fill:#dcfce7,stroke:#22c55e
+    style LIGHT fill:#fef3c7,stroke:#eab308
+    style FAIL fill:#fecaca,stroke:#dc2626
+    style NEXT fill:#dbeafe,stroke:#3b82f6
+</div>
+
+<!-- ==================== Cross-Platform ==================== -->
+<h2>🌐 跨平台兼容</h2>
+
+<p>本 skill 遵循 <strong>Agent Skills 开放标准</strong>，在同一套 <code>skills/top-journal-review-cycle/SKILL.md</code> + <code>references/</code> 下，通过三套插件清单同时支持：</p>
+
+<div class="platform-grid">
+  <div class="platform-item">✅ ZCode<br><small>.zcode-plugin/</small></div>
+  <div class="platform-item">✅ Claude Code<br><small>.claude-plugin/</small></div>
+  <div class="platform-item">✅ Codex CLI<br><small>.codex-plugin/</small></div>
+  <div class="platform-item">✅ OpenCode<br><small>.agents/skills/</small></div>
+  <div class="platform-item">✅ Hermes<br><small>.hermes/skills/</small></div>
+  <div class="platform-item">✅ Gemini CLI<br><small>SKILL.md 原生</small></div>
+  <div class="platform-item">✅ Cursor<br><small>.agents/skills/</small></div>
+  <div class="platform-item">✅ Windsurf<br><small>.agents/skills/</small></div>
+  <div class="platform-item">✅ Cline<br><small>.agents/skills/</small></div>
+  <div class="platform-item">✅ Copilot<br><small>.agents/skills/</small></div>
+</div>
+
+<div class="card">
+  <h3>安装命令</h3>
+  <pre>git clone https://github.com/owenxyzhang-seseTJ/ChemMatEnv-paper.git
+
+# ZCode / Claude Code / Codex CLI：直接添加整个目录为本地插件
+# OpenCode / Hermes / Cursor / Windsurf / Cline / Copilot：
+mkdir -p ~/.agents/skills
+ln -s $(pwd)/ChemMatEnv-paper/skills/top-journal-review-cycle ~/.agents/skills/</pre>
+</div>
+
+<!-- ==================== Footer ==================== -->
+<div style="text-align:center; margin-top:60px; color:var(--muted); font-size:0.85rem;">
+  <p>ChemMatEnv-paper v0.2.0 · MIT License · <a href="https://github.com/owenxyzhang-seseTJ/ChemMatEnv-paper">GitHub</a></p>
+  <p>Built for materials · chemistry · environment — top-journal manuscripts from evidence to submission.</p>
+</div>
+
+</div>
+
+<script>mermaid.initialize({startOnLoad:true,theme:'base',themeVariables:{fontFamily:'-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC",sans-serif'}});</script>
+</body>
+</html>
