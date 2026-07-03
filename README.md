@@ -11,21 +11,68 @@
 - 是否有 AI 味：删除模板腔、泛泛赞美、机械转场和空泛 impact 句。
 - 逻辑是否成立：检查句子与句子、段落与段落之间是否有可解释的因果、证据、对比、限定或递进关系。
 
+## 跨平台兼容
+
+本 skill 遵循 **Agent Skills 开放标准**（SKILL.md YAML frontmatter + markdown body），可在以下平台直接使用：
+
+| 平台 | 发现方式 | 插件清单目录 |
+|---|---|---|
+| **ZCode** | `.zcode-plugin/plugin.json` (优先级 1) | ✅ 已包含 |
+| **Claude Code** | `.claude-plugin/plugin.json` 或 `~/.claude/skills/` | ✅ 已包含 |
+| **Codex CLI** | `.codex-plugin/plugin.json` 或 `~/.agents/skills/` | ✅ 已包含 |
+| **OpenCode** | `.agents/skills/` 或 `~/.opencode/skills/` | ✅ 兼容 |
+| **Hermes** | `~/.hermes/skills/` 或 `.agents/skills/` | ✅ 兼容 |
+| **Gemini CLI** | 激活 `activate_skill` 工具 | ✅ SKILL.md 格式原生支持 |
+| **Cursor / Windsurf / Cline / Copilot** | `.agents/skills/` 共享目录 | ✅ 兼容 |
+
+## 安装
+
+### 方式 1：从 GitHub 克隆（推荐）
+
+```bash
+git clone https://github.com/owenxyzhang-seseTJ/ChemMatEnv-paper.git ~/ChemMatEnv-paper
+```
+
+**ZCode**：插件市场 → 添加本地插件 → 选择 `~/ChemMatEnv-paper`
+
+**Claude Code / Codex CLI / OpenCode**：将 skill 目录链接到共享技能目录：
+
+```bash
+mkdir -p ~/.agents/skills
+ln -s ~/ChemMatEnv-paper/skills/top-journal-review-cycle ~/.agents/skills/top-journal-review-cycle
+```
+
+**Hermes**：
+
+```bash
+mkdir -p ~/.hermes/skills
+ln -s ~/ChemMatEnv-paper/skills/top-journal-review-cycle ~/.hermes/skills/top-journal-review-cycle
+```
+
+### 方式 2：直接复制 skills 目录
+
+```bash
+git clone https://github.com/owenxyzhang-seseTJ/ChemMatEnv-paper.git
+cp -r ChemMatEnv-paper/skills/top-journal-review-cycle ~/.agents/skills/
+```
+
+### 方式 3：作为 ZCode / Claude Code / Codex 插件安装
+
+整个仓库根目录即为完整插件包。将本地路径或 GitHub URL 添加到对应平台的插件管理器中即可。`skills/`、`agents/`（ZCode 专用）会被自动发现。
+
 ## 上传哪个文件夹
 
-上传整个仓库根目录，也就是包含这些内容的文件夹：
+上传整个仓库根目录：
 
 ```text
 .zcode-plugin/plugin.json
+.claude-plugin/plugin.json
+.codex-plugin/plugin.json
 skills/top-journal-review-cycle/
 agents/
 README.md
 LICENSE
 ```
-
-请上传完整 plugin 包，这样才能保留故事架构师、期刊要求检索员、起草员、表达检索员、编辑和三类审稿人。
-
-## 安装
 
 把本仓库 clone 到本地后，在 ZCode 里将该目录作为本地插件添加即可。`skills/`、`agents/` 目录会被自动发现，无需在 `plugin.json` 里逐个声明。
 
@@ -264,6 +311,10 @@ Manuscript section: [paste text]
 ```text
 .
 ├── .zcode-plugin/
+│   └── plugin.json
+├── .claude-plugin/
+│   └── plugin.json
+├── .codex-plugin/
 │   └── plugin.json
 ├── agents/
 │   ├── chief-editor.md
