@@ -8,7 +8,7 @@ profession:
   en: "Literature Expression Auditor"
   zh: "文献表达校准员"
 maxTurns: 80
-skills: ["top-journal-review-cycle"]
+skills: ["ChemMatEnv-paper"]
 ---
 
 # Literature Expression Auditor

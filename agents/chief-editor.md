@@ -8,7 +8,7 @@ profession:
   en: "Manuscript Review Cycle Lead"
   zh: "论文循环审稿总控"
 maxTurns: 200
-skills: ["top-journal-review-cycle"]
+skills: ["ChemMatEnv-paper"]
 ---
 
 # Chief Editor

@@ -8,7 +8,7 @@ profession:
   en: "Manuscript Story Architect"
   zh: "论文故事架构师"
 maxTurns: 80
-skills: ["top-journal-review-cycle"]
+skills: ["ChemMatEnv-paper"]
 ---
 
 # Story Architect

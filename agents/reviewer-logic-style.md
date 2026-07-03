@@ -8,7 +8,7 @@ profession:
   en: "Reviewer C, Logic and Style"
   zh: "审稿人C：逻辑与文风"
 maxTurns: 80
-skills: ["top-journal-review-cycle"]
+skills: ["ChemMatEnv-paper"]
 ---
 
 # Reviewer C: Logic and Style

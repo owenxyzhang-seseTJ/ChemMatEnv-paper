@@ -8,7 +8,7 @@ profession:
   en: "Journal-Aware Manuscript Drafter"
   zh: "期刊适配论文起草员"
 maxTurns: 100
-skills: ["top-journal-review-cycle"]
+skills: ["ChemMatEnv-paper"]
 ---
 
 # Manuscript Drafter

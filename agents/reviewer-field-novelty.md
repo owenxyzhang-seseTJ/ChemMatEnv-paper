@@ -8,7 +8,7 @@ profession:
   en: "Reviewer B, Field and Novelty"
   zh: "审稿人B：领域与新颖性"
 maxTurns: 80
-skills: ["top-journal-review-cycle"]
+skills: ["ChemMatEnv-paper"]
 ---
 
 # Reviewer B: Field and Novelty

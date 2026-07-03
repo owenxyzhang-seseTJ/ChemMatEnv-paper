@@ -1,5 +1,5 @@
 ---
-name: top-journal-review-cycle
+name: ChemMatEnv-paper
 description: "Use whenever the user is preparing a materials, chemistry, porous-materials, or energy/environment manuscript for a top journal: building a paper story from evidence, researching target-journal requirements, drafting English sections, calibrating phrasing against same-topic top-journal papers, de-AI-ing prose, rebuilding sentence/paragraph logic, searching for supporting citations from top journals, diagnosing LaTeX layout problems, running pre-submission review cycles, or writing cover letters. Trigger even when the user does not say 'top journal' — mentions of pre-submission checks, reviewer response, overclaim fixes, logic repair, story design, citation search, LaTeX layout, or de-AI should all fire this skill. 适用于材料、化学、多孔材料、能源环境论文的故事设计、目标期刊要求检索、各章节 playbook 起草、文献引用搜索、顶刊表达校准+diction 校准、去 AI 味+中→英修复、逻辑链+反向提纲、失败模式诊断、LaTeX 排版诊断、cover letter 和投稿前审稿循环；用户说到投稿前检查、回复审稿人、overclaim、逻辑重建、故事设计、引用搜索、LaTeX 排版或去 AI 味时即应触发，不必出现'顶刊'字样。"
 ---
 

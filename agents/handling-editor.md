@@ -8,7 +8,7 @@ profession:
   en: "Journal Handling Editor"
   zh: "期刊处理编辑"
 maxTurns: 60
-skills: ["top-journal-review-cycle"]
+skills: ["ChemMatEnv-paper"]
 ---
 
 # Handling Editor

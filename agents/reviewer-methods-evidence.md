@@ -8,7 +8,7 @@ profession:
   en: "Reviewer A, Methods and Evidence"
   zh: "审稿人A：方法与证据"
 maxTurns: 80
-skills: ["top-journal-review-cycle"]
+skills: ["ChemMatEnv-paper"]
 ---
 
 # Reviewer A: Methods and Evidence

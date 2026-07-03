@@ -8,7 +8,7 @@ profession:
   en: "Manuscript Revision Editor"
   zh: "论文修订编辑"
 maxTurns: 100
-skills: ["top-journal-review-cycle"]
+skills: ["ChemMatEnv-paper"]
 ---
 
 # Revision Editor

@@ -39,21 +39,21 @@ git clone https://github.com/owenxyzhang-seseTJ/ChemMatEnv-paper.git ~/ChemMatEn
 
 ```bash
 mkdir -p ~/.agents/skills
-ln -s ~/ChemMatEnv-paper/skills/top-journal-review-cycle ~/.agents/skills/top-journal-review-cycle
+ln -s ~/ChemMatEnv-paper/skills/ChemMatEnv-paper ~/.agents/skills/ChemMatEnv-paper
 ```
 
 **Hermes**：
 
 ```bash
 mkdir -p ~/.hermes/skills
-ln -s ~/ChemMatEnv-paper/skills/top-journal-review-cycle ~/.hermes/skills/top-journal-review-cycle
+ln -s ~/ChemMatEnv-paper/skills/ChemMatEnv-paper ~/.hermes/skills/ChemMatEnv-paper
 ```
 
 ### 方式 2：直接复制 skills 目录
 
 ```bash
 git clone https://github.com/owenxyzhang-seseTJ/ChemMatEnv-paper.git
-cp -r ChemMatEnv-paper/skills/top-journal-review-cycle ~/.agents/skills/
+cp -r ChemMatEnv-paper/skills/ChemMatEnv-paper ~/.agents/skills/
 ```
 
 ### 方式 3：作为 ZCode / Claude Code / Codex 插件安装
@@ -68,7 +68,7 @@ cp -r ChemMatEnv-paper/skills/top-journal-review-cycle ~/.agents/skills/
 .zcode-plugin/plugin.json
 .claude-plugin/plugin.json
 .codex-plugin/plugin.json
-skills/top-journal-review-cycle/
+skills/ChemMatEnv-paper/
 agents/
 README.md
 LICENSE
@@ -106,7 +106,7 @@ LICENSE
 最小输入也可以很简单：
 
 ```text
-Use $top-journal-review-cycle to revise this abstract for a JACS submission. Check odd expressions with live top-journal literature search, remove AI-like prose, and repair sentence logic.
+Use $ChemMatEnv-paper to revise this abstract for a JACS submission. Check odd expressions with live top-journal literature search, remove AI-like prose, and repair sentence logic.
 
 [paste abstract]
 ```
@@ -224,7 +224,7 @@ Use $top-journal-review-cycle to revise this abstract for a JACS submission. Che
 ### 从材料设计故事并起草
 
 ```text
-Use $top-journal-review-cycle to build a story package and draft a manuscript for [target journal]. Before drafting, search the official journal requirements and search same-topic top-journal papers for expressions and collocations. Then draft the Title, Abstract, Introduction, Results and Discussion skeleton, and Conclusion from the locked story package.
+Use $ChemMatEnv-paper to build a story package and draft a manuscript for [target journal]. Before drafting, search the official journal requirements and search same-topic top-journal papers for expressions and collocations. Then draft the Title, Abstract, Introduction, Results and Discussion skeleton, and Conclusion from the locked story package.
 
 Target journal: [journal name]
 Evidence summary / figures / legends: [paste materials]
@@ -233,7 +233,7 @@ Evidence summary / figures / legends: [paste materials]
 ### 完整审稿循环
 
 ```text
-Use $top-journal-review-cycle to run one handling-editor pass and three rounds of three simulated reviewers on my materials chemistry manuscript. Before any new drafting, search official target-journal requirements and same-topic top-journal expressions/collocations. After each writing pass, remove AI-like prose and repair sentence/paragraph logic before continuing.
+Use $ChemMatEnv-paper to run one handling-editor pass and three rounds of three simulated reviewers on my materials chemistry manuscript. Before any new drafting, search official target-journal requirements and same-topic top-journal expressions/collocations. After each writing pass, remove AI-like prose and repair sentence/paragraph logic before continuing.
 
 Target journal: [journal name]
 Manuscript: [paste text or attach file]
@@ -243,7 +243,7 @@ Figures/evidence summary: [paste summary]
 ### 只改 Abstract
 
 ```text
-Use $top-journal-review-cycle to revise this abstract for [target journal]. Focus on top-journal phrasing, anti-AI style, claim strength, and sentence-to-sentence logic. Search recent papers from the target journal or adjacent journals before revising awkward expressions.
+Use $ChemMatEnv-paper to revise this abstract for [target journal]. Focus on top-journal phrasing, anti-AI style, claim strength, and sentence-to-sentence logic. Search recent papers from the target journal or adjacent journals before revising awkward expressions.
 
 [paste abstract]
 ```
@@ -251,7 +251,7 @@ Use $top-journal-review-cycle to revise this abstract for [target journal]. Focu
 ### 只改 Introduction
 
 ```text
-Use $top-journal-review-cycle to rebuild this Introduction. First identify the core problem, bottleneck, design principle, and evidence limits. Then revise the prose, remove AI-like transitions, and make every paragraph-to-paragraph link explicit.
+Use $ChemMatEnv-paper to rebuild this Introduction. First identify the core problem, bottleneck, design principle, and evidence limits. Then revise the prose, remove AI-like transitions, and make every paragraph-to-paragraph link explicit.
 
 Target journal: [journal name]
 Introduction: [paste text]
@@ -261,13 +261,13 @@ Evidence summary: [paste evidence]
 ### 投稿前压力测试
 
 ```text
-Use $top-journal-review-cycle to pressure-test this manuscript before submission. Simulate a handling editor and three rounds of reviewers. For every criticism, decide whether it can be solved by writing, requires claim downgrading, or needs new data.
+Use $ChemMatEnv-paper to pressure-test this manuscript before submission. Simulate a handling editor and three rounds of reviewers. For every criticism, decide whether it can be solved by writing, requires claim downgrading, or needs new data.
 ```
 
 ### 返修前预演
 
 ```text
-Use $top-journal-review-cycle to simulate reviewer pushback before I write the response letter. Build a review action matrix, revise the manuscript text where possible, and list issues that require additional data.
+Use $ChemMatEnv-paper to simulate reviewer pushback before I write the response letter. Build a review action matrix, revise the manuscript text where possible, and list issues that require additional data.
 
 Reviewer concerns: [paste comments]
 Manuscript section: [paste text]
@@ -328,7 +328,7 @@ Manuscript section: [paste text]
 │   ├── revision-editor.md
 │   └── story-architect.md
 ├── skills/
-│   └── top-journal-review-cycle/
+│   └── ChemMatEnv-paper/
 │       ├── SKILL.md
 │       └── references/
 │           ├── anti-ai-style-rules.md

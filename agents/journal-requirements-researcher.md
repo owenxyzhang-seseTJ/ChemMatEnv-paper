@@ -8,7 +8,7 @@ profession:
   en: "Journal Requirements Researcher"
   zh: "投稿规范检索员"
 maxTurns: 80
-skills: ["top-journal-review-cycle"]
+skills: ["ChemMatEnv-paper"]
 ---
 
 # Journal Requirements Researcher
