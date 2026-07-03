@@ -1,0 +1,17 @@
+{
+  "name": "ChemMatEnv-paper",
+  "version": "0.1.0",
+  "description": "A materials and chemistry manuscript skill: story-package design, target-journal requirements research, journal-aware drafting, live literature expression audit, anti-AI style cleanup, logic repair, and multi-round simulated top-journal review.",
+  "author": {
+    "name": "Xiaoyu Zhang"
+  },
+  "license": "MIT",
+  "keywords": [
+    "academic-writing",
+    "materials-chemistry",
+    "manuscript-review",
+    "top-journal",
+    "ChemMatEnv-paper"
+  ],
+  "skills": "./skills/"
+}
