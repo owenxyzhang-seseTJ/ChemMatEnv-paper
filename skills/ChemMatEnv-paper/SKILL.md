@@ -163,7 +163,15 @@ Then provide the revised text. A gate passes only if the manuscript text has bee
 
 ### 7. Handling Editor Pass
 
-When the user requests a review cycle, first simulate one handling editor. Use subagents when available; do not merely role-play inside one response unless subagents are unavailable.
+**Hard rule: MUST dispatch a real subagent for the handling editor.** Do NOT role-play the editor inside the parent response. If your platform supports subagents (Agent tool, Task tool, or equivalent), use it. Only fall back to inline simulation if subagents are genuinely unavailable — and if you fall back, declare `⚠️ SUBAGENT_UNAVAILABLE: editor review is simulated, not independent` at the top of the output.
+
+**Subagent dispatch:**
+```
+Agent name: handling-editor
+Input: current manuscript + story package + target journal profile
+Do NOT include: your own opinion of the manuscript, any expected verdict, or reviewer comments
+Temperature: use nonzero (0.3–0.5) to produce genuine editorial judgment
+```
 
 The handling editor checks:
 
@@ -177,22 +185,66 @@ Convert the editor output into a `review_action_matrix`, then revise immediately
 
 ### 8. Three Reviewer Rounds
 
-Run exactly three rounds. Each round contains three independent reviewers:
+Run exactly three rounds. Each round dispatches three independent reviewer subagents.
 
-- **Reviewer A, Methods and Evidence**: evidence ladder, controls, baselines, statistics, methods, reproducibility.
-- **Reviewer B, Field and Novelty**: literature positioning, novelty, target-journal fit, contribution level.
-- **Reviewer C, Logic and Style**: prose, AI-like texture, paragraph flow, sentence logic, figure-to-text coherence.
+**Hard rule: MUST dispatch real subagents for ALL THREE reviewers in EVERY round.** This is not optional. If your platform supports subagents, you MUST use them. Do not role-play three reviewers sequentially in one message — that collapses independence into a monologue. If subagents are genuinely unavailable, you may simulate inline BUT you must:
+- Run each reviewer in a completely separate response/turn (do not let reviewer B see reviewer A's output)
+- Declare `⚠️ SUBAGENT_UNAVAILABLE: ROUND N simulated` at the top
+- Use nonzero temperature for each simulated reviewer
 
-Within each round:
+#### Reviewer Definitions
 
-1. Send the same current manuscript, story package, target journal profile, and previous action matrix to all three reviewers.
-2. Collect comments independently.
-3. Merge comments into a single `review_action_matrix`.
-4. Revise the manuscript immediately.
-5. Re-run all three quality gates.
-6. Carry unresolved items into the next round.
+| Reviewer | Domain | Agent file | Checklist focus |
+|---|---|---|---|
+| **A** | Methods & Evidence | `agents/reviewer-methods-evidence.md` | evidence ladder, controls, baselines, statistics, methods, reproducibility, characterization rigor |
+| **B** | Field & Novelty | `agents/reviewer-field-novelty.md` | literature positioning, novelty, target-journal fit, contribution level, missing citations |
+| **C** | Logic & Style | `agents/reviewer-logic-style.md` | prose, AI-like texture, paragraph flow, sentence logic, figure-to-text coherence |
 
-Do not let reviewers silently rewrite the story. If they request a new story, mark it as `requires_story_rebuild`.
+#### Per-Round Dispatch Protocol
+
+For each round, dispatch all three reviewers. Send them in parallel if your platform supports concurrent subagents (they are independent of each other).
+
+**Each reviewer subagent receives ONLY:**
+1. The current manuscript text (same version for all three)
+2. The locked story package
+3. The target journal profile
+4. The previous round's `review_action_matrix` (for Rounds 2 and 3 only; Round 1 has no prior matrix)
+5. Their own agent definition file (from `agents/`)
+
+**Each reviewer subagent MUST NOT receive:**
+- Other reviewers' comments from this round (destroys independence)
+- Your opinion or expected verdict (leaks the answer)
+- The editor's comments (reviewers judge independently of the editor)
+
+**Subagent dispatch format (example):**
+```
+Agent: reviewer-methods-evidence
+Input: manuscript text + story package + journal profile + [prior action matrix if R2/R3]
+Instruction: Review according to your agent definition. Output recommendation (accept/minor/major/reject-resubmit/reject), top 3-6 issues with locations, required actions, and whether each requires new data. Do NOT read or reference other reviewers' outputs.
+Temperature: 0.3–0.5
+```
+
+#### Within Each Round
+
+1. **Dispatch all three reviewers in parallel.** Do not wait for reviewer A to finish before starting B and C — they are independent.
+2. **Collect all outputs.** Read each reviewer's output only after ALL have completed.
+3. **Merge into a single `review_action_matrix`** using `references/review-action-matrix-schema.md`. De-duplicate overlapping issues. Preserve the most severe grade when two reviewers flag the same problem.
+4. **Revise the manuscript immediately.** Use `agents/revision-editor.md` as a subagent for the revision. Pass it the merged action matrix + current manuscript. Do NOT pass it individual reviewer outputs (let the revision editor work from the merged matrix only).
+5. **Re-run quality gates** (Full gate for R1 post-revision, Full or Light gate for R2/R3 based on change scale — see Core Rule §Gate level).
+6. **Carry unresolved items** into the next round's action matrix.
+
+#### Round Focus
+
+- **Round 1**: Broad structural and evidence critique. Reviewers have not seen the manuscript before. Expect the most comments.
+- **Round 2**: Check whether Round 1 revisions solved the flagged issues. Surface remaining weaknesses that survived revision. Reviewers see the Round 1 action matrix (resolved items marked) but NOT other reviewers' Round 2 comments.
+- **Round 3**: Acceptance-risk check and final language/logic scrutiny. Focus on whether the manuscript, as revised, would pass peer review at the target journal. Only new or unresolved issues should appear.
+
+#### Hard Prohibitions (Review Cycle)
+
+- Do NOT let reviewers silently rewrite the story. If a reviewer requests a new story, mark it as `requires_story_rebuild` and stop — do not revise until the story package is rebuilt.
+- Do NOT feed reviewer A's output to reviewer B (or vice versa) within the same round.
+- Do NOT skip a round. Three rounds means three dispatch cycles, each with three independent subagents.
+- Do NOT mark an issue resolved because the prose sounds better. An issue is resolved only when the specific action it required has been applied to the text.
 
 ### 9. Final Output
 
