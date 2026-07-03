@@ -2,45 +2,24 @@
 
 Default section logic for drafting English manuscript text from a locked story package. Preconditions (locked story package, live journal requirements, evidence map, pre-draft same-topic expression audit) and the "stop if live search is unavailable" rule live in SKILL.md and are not repeated here. Paragraph function tags (`context` / `gap` / `move` / `evidence` / `mechanism` / `scope` / `implication`) and the drafting rules are also in SKILL.md.
 
-## Title
+## Core Drafting Rules
 
-Encode the control lever and target outcome. Respect target-journal title limits.
+- Draft only from the locked story package; do not invent new contributions.
+- Apply top-journal prose: concrete nouns, defined baselines, measured outcomes, claim-first paragraph openings.
+- Use mechanism language only when the evidence ladder supports it (see `claim-evidence-ladder.md`).
+- Replace broad novelty claims with the precise design advance.
+- Keep scope narrower than the evidence.
+- Follow target journal requirements for abstract length, title length, display items, and section structure.
 
-Why: a title that names the lever and the outcome is searchable and tells the editor the paper has a design advance, not just a material.
+## Section Structure
 
-## Abstract
+For detailed per-section playbooks (abstract, introduction, results, discussion, conclusion, title), paper-type argument chains (research, hypothesis, methods, review, computational), and journal-specific formatting rules, see **`per-section-playbooks.md`**. That file covers:
 
-Follow target-journal requirements first. If no specific structure is found:
+- Abstract: context→gap→approach→result→implication→boundary with journal-specific word limits.
+- Introduction: four-paragraph funnel with materials/chemistry variants (property-first, design-strategy, application-pull).
+- Results & Discussion: evidence ladder for materials papers, characterization discipline, Results vs. Discussion syntax separation, hedging calibration.
+- Conclusion: three-part close with overclaim checklist.
+- Title: declarative, colon-separated, and finding-led patterns by journal family.
+- Five paper-type argument chains adapted for materials, chemistry, and environment.
 
-1. Field-level challenge.
-2. Precise bottleneck and why standard routes are constrained.
-3. `Here we show` or equivalent move, followed by the platform and main result.
-4. Mechanistic or design implication, without repeating the headline metric.
-
-Why this order: readers screen abstracts by bottleneck and result; ending on a non-repeated implication signals depth rather than restating the number.
-
-## Introduction
-
-Use this chain:
-
-`broad challenge -> sharp bottleneck -> why unresolved -> design principle -> what this work shows -> literature positioning -> roadmap`
-
-Do not write a separate literature-catalog section. Literature should explain the constraint that the present design resolves.
-
-Why: a standalone catalog dilutes the bottleneck argument — citations earn their place only by defining the gap. The roadmap closes the introduction so readers (and reviewers) can predict the evidence order, which lowers the chance of "disjointed" comments.
-
-## Results and Discussion
-
-Use this chain for each subsection:
-
-`claim -> figure or experiment -> comparator -> mechanism or interpretation -> boundary -> mini-takeaway`
-
-Each subsection opener should state the claim that the figure is about to prove.
-
-Why: leading with the claim lets the reviewer evaluate the figure against an explicit promise rather than reverse-engineering it from data. The boundary step keeps scope narrower than the evidence, which is where overclaim risk usually enters.
-
-## Conclusion
-
-Do not repeat the abstract. State what design freedom, mechanistic understanding, or application boundary has been clarified.
-
-Why: a conclusion that rephrases the abstract wastes the one place a reviewer looks for the paper's honest scope and next-step framing.
+This file provides the drafting rules; `per-section-playbooks.md` provides the structure each section should follow.

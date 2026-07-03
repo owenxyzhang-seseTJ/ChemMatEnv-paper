@@ -1,6 +1,6 @@
 ---
 name: top-journal-review-cycle
-description: "Use whenever the user is preparing a materials, chemistry, porous-materials, or energy/environment manuscript for a top journal: building a paper story from evidence, researching target-journal requirements, drafting English sections, calibrating phrasing against same-topic top-journal papers, de-AI-ing prose, rebuilding sentence/paragraph logic, writing cover letters, responding to reviewer comments, or running pre-submission review cycles. Trigger even when the user does not say 'top journal' — mentions of pre-submission checks, reviewer response, overclaim fixes, logic repair, story design, or de-AI should all fire this skill. 适用于材料、化学、多孔材料、能源环境论文的故事设计、目标期刊要求检索、英文起草、顶刊表达校准、去 AI 味、逻辑重建、cover letter、审稿意见回复和投稿前审稿循环；用户说到投稿前检查、回复审稿人、overclaim、逻辑重建、故事设计或去 AI 味时即应触发，不必出现'顶刊'字样。"
+description: "Use whenever the user is preparing a materials, chemistry, porous-materials, or energy/environment manuscript for a top journal: building a paper story from evidence, researching target-journal requirements, drafting English sections, calibrating phrasing against same-topic top-journal papers, de-AI-ing prose, rebuilding sentence/paragraph logic, searching for supporting citations from top journals, diagnosing LaTeX layout problems, running pre-submission review cycles, or writing cover letters. Trigger even when the user does not say 'top journal' — mentions of pre-submission checks, reviewer response, overclaim fixes, logic repair, story design, citation search, LaTeX layout, or de-AI should all fire this skill. 适用于材料、化学、多孔材料、能源环境论文的故事设计、目标期刊要求检索、各章节 playbook 起草、文献引用搜索、顶刊表达校准+diction 校准、去 AI 味+中→英修复、逻辑链+反向提纲、失败模式诊断、LaTeX 排版诊断、cover letter 和投稿前审稿循环；用户说到投稿前检查、回复审稿人、overclaim、逻辑重建、故事设计、引用搜索、LaTeX 排版或去 AI 味时即应触发，不必出现'顶刊'字样。"
 ---
 
 # Top Journal Review Cycle
@@ -97,9 +97,13 @@ Load only the references needed for the task:
 - Story design: `references/story-architecture-protocol.md`.
 - Target journal requirements: `references/target-journal-requirements.md`.
 - Manuscript drafting: `references/manuscript-drafting-protocol.md`.
+- Per-section playbooks: `references/per-section-playbooks.md`.
+- Citation search: `references/citation-search.md`.
 - Live expression checking: `references/live-literature-expression-audit.md`.
 - Logic repair: `references/logic-link-audit.md`.
 - AI-style cleanup: `references/anti-ai-style-rules.md`.
+- Failure-mode diagnosis: `references/failure-mode-diagnosis.md`.
+- LaTeX layout: `references/latex-layout.md`.
 - Multi-agent review: `references/multi-round-review-protocol.md`.
 - Review tracking: `references/review-action-matrix-schema.md`.
 
@@ -121,6 +125,14 @@ Before journal-specific drafting, perform live search of official sources for ta
 
 Use `references/target-journal-requirements.md`.
 
+### 4b. Citation Search (Optional)
+
+When the user asks for supporting references, a claim in the draft visibly lacks cited support, or the user provides text and asks "find citations for this," run the citation search workflow. This is NOT a mandatory quality gate — only run it when the user requests it or when a specific claim needs a reference.
+
+Segment the text → parse each claim → search with conservative 5-level evaluation → export one `.enw`/`.ris`/`.rdf` file → report with segment-to-reference mapping and risks. Default scope: materials/chemistry/environment top journals across ACS, RSC, Wiley, Elsevier/Cell Press, Nature family, and Science family. Use the live search strategy and failure-mode checklist in `references/citation-search.md`.
+
+Do not cite a paper merely because its title is related. Do not present a metadata-only candidate as support without checking the abstract. Do not use a review as primary evidence for a mechanism claim.
+
 ### 5. Draft Or Revise
 
 Draft or revise only claims supported by the story package and evidence map. For new text, use the story package, live requirements packet, and live same-topic top-journal expression audit before writing. Do not draft first and search later.
@@ -134,7 +146,9 @@ Use restrained top-journal prose:
 - Make every paragraph serve a function: `context`, `gap`, `move`, `evidence`, `mechanism`, `scope`, or `implication`.
 - Follow target journal requirements for abstract length, title length, display items, and section structure.
 
-Use `references/manuscript-drafting-protocol.md`.
+Use `references/manuscript-drafting-protocol.md`. For section-specific playbooks (abstract, introduction, results, discussion, conclusion, title) and paper-type argument chains, also load `references/per-section-playbooks.md`.
+
+Before editing or drafting, run the 9-item pre-edit diagnostic from `references/failure-mode-diagnosis.md`: check paper type logic, gap positioning, claim-evidence mapping, boundary, Results/Discussion separation, title/abstract signal, and terminology consistency. Fix structural problems before sentence-level polishing — do not polish a draft whose section job is wrong.
 
 ### 6. Run Quality Gates
 
